@@ -1,6 +1,4 @@
----
-description: 'Latest stable version: 3.3.0'    :: 2024.01.23 cripped
----
+
 
 # Kotlin JDSL
 
@@ -580,10 +578,9 @@ class MyIntrospector : JpqlPropertyIntrospector() {
     override fun introspect(property: KCallable<*>): JpqlPropertyDescription? {
         if (property is KFunction1<*, *>) {
             // 나만의 규칙으로 이름을 추론합니다
-            val name = ...
+            val name = "test"
             return MyProperty(name)
         }
-
         return null
     }
 

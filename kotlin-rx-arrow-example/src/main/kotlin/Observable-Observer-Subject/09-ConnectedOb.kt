@@ -2,7 +2,7 @@ package chapter03.`Observable-Observer-Subject`
 
 import io.reactivex.rxkotlin.toObservable
 
-fun main(args: Array<String>) {
+fun main() {
     val connectableObservable = listOf("String 1","String 2","String 3","String 4","String 5").toObservable()
         .publish()//1    .publish를 통해서 Cold를 Hot으로 변경한다.
     connectableObservable.subscribe({ println("Subscription 1: $it") })//2
