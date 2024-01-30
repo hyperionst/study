@@ -30,8 +30,12 @@
 
 
 ----
-### 8.simple-admin [240129]  18080 ::
- - Spring dependency :: webflux - jpa - security
+### 8.sping-security-6-mvc : 8080
+
+
+
+### 8.simple-admin [240129]  8080 ::
+ - Spring dependency :: webMVC - jpa - security
  - External dependency :: jdsl + arrow + coroutine
  - 간단한 어드민을 구성한다. 
    + USER정보 및 권한을 바탕으로한 로그인
