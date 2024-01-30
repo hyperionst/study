@@ -1,5 +1,5 @@
 plugins{
-    kotlin("plugin.jpa") version "1.9.0" // <-- 추가됨: mysql
+    kotlin("plugin.jpa") version "1.9.0" // <-- 추가됨: mysql : all-Open
 }
 
 

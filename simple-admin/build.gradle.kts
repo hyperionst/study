@@ -1,0 +1,56 @@
+plugins{
+	kotlin("plugin.jpa") version "1.9.0" // <-- 추가됨: mysql
+}
+
+dependencies {
+	api(project(":core"))
+
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+	//mysql & jpa
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+	runtimeOnly("com.mysql:mysql-connector-j")  //mysql 8.x부터는 바꼈다고 한다.
+
+	//Spring security
+	implementation("io.jsonwebtoken:jjwt-api:0.12.3")
+	implementation("io.jsonwebtoken:jjwt-impl:0.12.3")
+	implementation("io.jsonwebtoken:jjwt-jackson:0.12.3")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	testImplementation("org.springframework.security:spring-security-test")
+
+	//webflux with kotlin
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+	testImplementation("io.projectreactor:reactor-test")
+
+
+	//linecorp-jdsl  :: https://github.com/line/kotlin-jdsl/tree/main/docs/ko/jpql-with-kotlin-jdsl
+	implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.3.0")
+	implementation("com.linecorp.kotlin-jdsl:jpql-render:3.3.0")
+	implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:3.3.0")   //Kotlin JDSL은 DSL로 생성된 쿼리를 실행시킬 수 있는 Support dependency
+
+	//arrow 기본라이브러리
+	implementation("io.arrow-kt:arrow-core:1.2.0")
+	implementation("io.arrow-kt:arrow-fx-coroutines:1.2.0")
+
+	//Kotlin Coroutine & webflux-extension 추가
+	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
+
+	implementation("org.springframework.boot:spring-boot-starter-web")
+
+}
+
+tasks.bootJar {
+enabled = true
+}
+
+tasks.jar {
+enabled = true
+}
+
