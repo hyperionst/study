@@ -89,6 +89,15 @@ class `02-ArrowFunctionalDataType` {
     }
 
 
+    @Test
+    fun exampleNonEmptyList(){
+        val nelist1 =listOf(1, 2, 3, 4, 5).toNonEmptyListOrNull()
+        println(nelist1)
+        val nelist2 : NonEmptyList<Int>? =  emptyList<Int>().toNonEmptyListOrNull()
+        println(nelist2?.get(1).toString())
+    }
+
+
 
 
 

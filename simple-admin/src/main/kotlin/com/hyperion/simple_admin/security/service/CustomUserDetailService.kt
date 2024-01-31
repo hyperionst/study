@@ -1,6 +1,6 @@
 package com.hyperion.simple_admin.security.service
 
-import com.hyperion.simple_admin.security.model.BaseUserModel
+import com.hyperion.simple_admin.customer.model.BaseUserModel
 import com.hyperion.simple_admin.security.repository.UserRepository
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
@@ -26,11 +26,11 @@ import org.springframework.stereotype.Service
  * @author 2024.01.30. KSJ
  */
 @Service
-class CustomUserDetailsService(private val userRepository: UserRepository) : UserDetailsService {
+class CustomUserDetailsService(private val repository: UserRepository) : UserDetailsService {
 
 
     override fun loadUserByUsername(username: String): UserDetails =
-        userRepository.findByEmail(username)
+        repository.findByEmail(username)
             ?.mapToUserDetails()
             ?: throw UsernameNotFoundException("Not found!")
 
@@ -39,6 +39,7 @@ class CustomUserDetailsService(private val userRepository: UserRepository) : Use
         User.builder()
             .username(this.email)
             .password(this.password)
-            .roles(this.role.name)
+            .roles(this.name)
+            //.roles(this.role.name)
             .build()
 }

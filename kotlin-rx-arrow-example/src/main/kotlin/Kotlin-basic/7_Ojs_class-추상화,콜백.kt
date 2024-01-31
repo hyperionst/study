@@ -70,7 +70,7 @@ class Cat : Animal(), Drawable {   //인터페이스는 괄호없이사용, 클�
     }
 
     override fun draw() {
-        TODO("Not yet implemented")
+
     }
 }
 

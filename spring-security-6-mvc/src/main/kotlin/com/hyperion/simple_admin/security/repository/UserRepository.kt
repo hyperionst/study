@@ -17,8 +17,8 @@ class UserRepository(private val encoder: PasswordEncoder) {
         ),
         BaseUserModel(
             id = UUID.randomUUID(),
-            email = "email-2@gmail.com",
-            password = encoder.encode("pass1"),
+            email = "111@aaa.com",
+            password = encoder.encode("111"),
             role = Role.ADMIN,
         ),
         BaseUserModel(

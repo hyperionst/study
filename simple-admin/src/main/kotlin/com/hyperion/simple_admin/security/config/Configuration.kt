@@ -32,6 +32,7 @@ class Configuration {
     @Bean
     fun userDetailsService(userRepository: UserRepository): UserDetailsService = CustomUserDetailsService(userRepository)
 
+
     //Bcrypt 사용
     @Bean
     fun encoder(): PasswordEncoder = BCryptPasswordEncoder()
@@ -43,6 +44,8 @@ class Configuration {
         DaoAuthenticationProvider().also {
             it.setUserDetailsService(userDetailsService(userRepository))
             it.setPasswordEncoder(encoder())
+
+
         }
 
     //AuthenticationManager 설정

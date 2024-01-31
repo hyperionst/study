@@ -35,5 +35,10 @@ It manages authentication and authorization for our app with:
   what roles are required, etc.
   
 
+## 다른 프로젝트에 모듈로 병합시!!
+ - security.repository.UserRepository에 UserDetailService.loadUserByUsername과 연결시킬
+   함수를 구현한후 UserDetails가 완성될수 있도록 정보를 제공해주면 된다.
+
+
 - JWT 구조
 ![img.png](img.png)
