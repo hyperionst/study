@@ -25,7 +25,7 @@ class CustomerService(private val encoder: PasswordEncoder, private val customer
     /**
      * - 전체 데이터를 조회하고 NonEmptyList를 Either에 담아서 전달
      */
-    suspend fun getCustomers(): Either<String, NonEmptyList<BaseUserModel?>> {
+    fun getCustomers(): Either<String, NonEmptyList<BaseUserModel?>> {
         return when (val actual = customerJdslRepository.findAll {
             select(
                 entity(BaseUserModel::class),
@@ -41,7 +41,7 @@ class CustomerService(private val encoder: PasswordEncoder, private val customer
     /**
      * - id를 기준으로 데이터를 조회하고 NonEmptyList 를 Either 에 담아서 전달
      */
-    suspend fun getCustomerById(id: Long): Either<String, NonEmptyList<BaseUserModel?>> {
+    fun getCustomerById(id: Long): Either<String, NonEmptyList<BaseUserModel?>> {
         return when (val actual = customerJdslRepository.findAll {
             select(
                 entity(BaseUserModel::class),
@@ -81,7 +81,7 @@ class CustomerService(private val encoder: PasswordEncoder, private val customer
      * - id를 기준으로 Customer를 삭제, 결과를 Either로 전달
      * @return Either<fail String,number of affected data>
      */
-    suspend fun deleteCustomer(id: Long): Either<String, Int> {
+    fun deleteCustomer(id: Long): Either<String, Int> {
         return when (val actual = customerJdslRepository.delete() {
             deleteFrom(
                 entity(BaseUserModel::class),
@@ -101,10 +101,10 @@ class CustomerService(private val encoder: PasswordEncoder, private val customer
      * @throws IllegalArgumentException
      * @throws OptimisticLockingFailureException
      */
-    suspend fun save(requestUserModel: RequestUserModel): Either<String, BaseUserModel> {
+    fun save(requestUserModel: RequestUserModel): Either<String, BaseUserModel> {
 
         val reqToModel : (RequestUserModel) -> BaseUserModel = {data ->
-            BaseUserModel(0, data.email, encoder.encode(data.password), data.role, data.name,data.tel, data.birthday)
+            BaseUserModel(0, data.email, encoder.encode(data.password), data.role, data.name, data.tel, data.birthday)
         }
         return Either.catch {
             customerJdslRepository.save(reqToModel(requestUserModel))

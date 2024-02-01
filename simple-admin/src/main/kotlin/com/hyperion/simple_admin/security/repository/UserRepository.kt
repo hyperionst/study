@@ -1,10 +1,11 @@
 package com.hyperion.simple_admin.security.repository
 
-import com.hyperion.simple_admin.customer.model.Role
+
 import com.hyperion.simple_admin.customer.model.BaseUserModel
 import com.hyperion.simple_admin.customer.service.CustomerService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Repository
+
 
 
 /**
@@ -18,10 +19,9 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 class UserRepository(private val encoder: PasswordEncoder, private val customerService: CustomerService)  {
+
     fun findByEmail(email: String): BaseUserModel? =
         customerService.getBaseUserModelForUserDetailService(email)
-
-
 
 //--------------------------------------------------Security TEST code-------------------------------------
 //    private val users = mutableSetOf(

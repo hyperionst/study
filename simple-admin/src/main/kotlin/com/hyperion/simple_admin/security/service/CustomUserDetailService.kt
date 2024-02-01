@@ -26,11 +26,11 @@ import org.springframework.stereotype.Service
  * @author 2024.01.30. KSJ
  */
 @Service
-class CustomUserDetailsService(private val repository: UserRepository) : UserDetailsService {
+class CustomUserDetailsService(private val userRepository: UserRepository) : UserDetailsService {
 
 
     override fun loadUserByUsername(username: String): UserDetails =
-        repository.findByEmail(username)
+        userRepository.findByEmail(username)
             ?.mapToUserDetails()
             ?: throw UsernameNotFoundException("Not found!")
 
@@ -39,7 +39,6 @@ class CustomUserDetailsService(private val repository: UserRepository) : UserDet
         User.builder()
             .username(this.email)
             .password(this.password)
-            .roles(this.name)
-            //.roles(this.role.name)
+            .roles(this.role)
             .build()
 }

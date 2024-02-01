@@ -10,6 +10,7 @@ import com.hyperion.simple_admin.customer.repository.CustomerJdslRepository
 import com.hyperion.simple_admin.customer.service.CustomerService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -32,8 +33,8 @@ import java.util.UUID
 @RestController
 @RequestMapping("/customer")
 class CustomerController(private val customerService: CustomerService,) {
-    
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     suspend fun getCustomers() : ResponseEntity<NonEmptyList<BaseUserModel?>> {
         return when(val value = customerService.getCustomers()){
@@ -63,6 +64,7 @@ class CustomerController(private val customerService: CustomerService,) {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PutMapping("/update")
     suspend fun updateCustomerPassword(@Valid  @RequestBody requestUserModel: RequestUserModel) : ResponseEntity<String> {
         return when(val value = customerService.updateCustomerPassword(requestUserModel)){
@@ -77,6 +79,7 @@ class CustomerController(private val customerService: CustomerService,) {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     suspend fun deleteCustomer(@PathVariable id: Long) : ResponseEntity<String> {
         return when(val value = customerService.deleteCustomer(id)){

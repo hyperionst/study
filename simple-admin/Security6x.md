@@ -42,3 +42,4 @@ It manages authentication and authorization for our app with:
 
 - JWT 구조
 ![img.png](img.png)
+![img_1.png](img_1.png)

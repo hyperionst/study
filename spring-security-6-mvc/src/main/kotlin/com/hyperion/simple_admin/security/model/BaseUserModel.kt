@@ -6,9 +6,5 @@ data class BaseUserModel(
     val id: UUID,
     val email: String,
     val password: String,
-    val role: Role
+    val role: String
 )
-
-enum class Role {
-    USER, ADMIN
-}

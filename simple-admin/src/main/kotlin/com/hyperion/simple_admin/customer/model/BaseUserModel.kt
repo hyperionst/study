@@ -49,6 +49,6 @@ data class BaseUserModel(
     val birthday : String = "",
 )
 
-enum class Role {
-    USER, ADMIN
-}
+//enum class Role {
+//    USER, ADMIN
+//}

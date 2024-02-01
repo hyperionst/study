@@ -1,6 +1,5 @@
 package com.hyperion.simple_admin.security.repository
 
-import com.hyperion.simple_admin.security.model.Role
 import com.hyperion.simple_admin.security.model.BaseUserModel
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Repository
@@ -13,28 +12,29 @@ class UserRepository(private val encoder: PasswordEncoder) {
             id = UUID.randomUUID(),
             email = "email-1@gmail.com",
             password = encoder.encode("pass1"),
-            role = Role.USER,
+            role = "USER"
         ),
         BaseUserModel(
             id = UUID.randomUUID(),
             email = "111@aaa.com",
             password = encoder.encode("111"),
-            role = Role.ADMIN,
+            role = "ADMIN"
         ),
         BaseUserModel(
             id = UUID.randomUUID(),
-            email = "email-3@gmail.com",
-            password = encoder.encode("pass1"),
-            role = Role.USER,
+            email = "222@aaa.com",
+            password = encoder.encode("222"),
+            role = "USER",
         ),
     )
+
+
+    fun findByEmail(email: String): BaseUserModel? = users.firstOrNull { it.email == email }
+
     fun save(user: BaseUserModel): Boolean {
         val updated = user.copy(password = encoder.encode(user.password))
         return users.add(updated)
     }
-
-    fun findByEmail(email: String): BaseUserModel? = users.firstOrNull { it.email == email }
-
 
     fun findAll(): Set<BaseUserModel> = users
 

@@ -25,16 +25,25 @@ class SecurityConfiguration(
             .csrf { it.disable() }
             .authorizeHttpRequests {
                 it
+//                    .requestMatchers("/api/auth", "api/auth/refresh", "/error")
+//                    .permitAll()
+//                    .requestMatchers(HttpMethod.POST, "/customer/save")
+//                    .permitAll()
+//                    .requestMatchers("/customer/**")
+//                    .hasRole("ADMIN")
+//                    .anyRequest()
+//                    .fullyAuthenticated()
+
+                    //MethodSecurity 사용중 - entry point는 열어주고 Method단위로 권한을 제한한다.
                     .requestMatchers("/api/auth", "api/auth/refresh", "/error")
                     .permitAll()
-//                    .requestMatchers("/customer/**")
-//                    .permitAll()
-                    .requestMatchers(HttpMethod.POST, "/customer/save")
+                    .requestMatchers("/api/article/**")
                     .permitAll()
                     .requestMatchers("/customer/**")
-                    .hasRole("USER")
+                    .permitAll()
                     .anyRequest()
-                    .fullyAuthenticated()
+                    .authenticated()
+
             }
             .sessionManagement {
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

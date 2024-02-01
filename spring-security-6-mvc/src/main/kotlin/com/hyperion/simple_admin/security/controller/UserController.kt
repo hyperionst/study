@@ -3,7 +3,6 @@ package com.hyperion.simple_admin.security.controller
 import com.hyperion.simple_admin.security.dto.UserRequest
 import com.hyperion.simple_admin.security.dto.UserResponse
 import com.hyperion.simple_admin.security.model.BaseUserModel
-import com.hyperion.simple_admin.security.model.Role
 import com.hyperion.simple_admin.security.service.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,7 +17,7 @@ import org.springframework.web.server.ResponseStatusException
 import java.util.UUID
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/customer")
 class UserController(private val userService: UserService) {
 
     @PostMapping
@@ -28,6 +27,7 @@ class UserController(private val userService: UserService) {
             ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot create user.")
 
     @GetMapping
+    @RequestMapping("/all")
     fun listAll(): List<UserResponse> = userService.findAll().map { it.toResponse() }
 
     @GetMapping("/{uuid}")
@@ -58,6 +58,6 @@ class UserController(private val userService: UserService) {
             id = UUID.randomUUID(),
             email = this.email,
             password = this.password,
-            role = Role.USER,
+            role = "USER",
         )
 }
