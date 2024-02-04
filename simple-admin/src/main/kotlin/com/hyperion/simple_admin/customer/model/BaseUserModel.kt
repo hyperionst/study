@@ -14,7 +14,7 @@ import java.util.*
  *  ## BaseUserModel
  *   - Spring Security용 user-detail
  *   - Coustomer용 기초 사용자 정보
- *      > UUID를 기준으로 USER-DATA와 연결된다.
+ *
  *
  *  @author ksj
  */

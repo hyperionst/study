@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
+
+/**
+ * lOGIN  / refresh token에 대한 request를 담당.
+ */
 @RestController
 @RequestMapping("/api/auth")
 class AuthController(private val authenticationService: AuthenticationService) {
