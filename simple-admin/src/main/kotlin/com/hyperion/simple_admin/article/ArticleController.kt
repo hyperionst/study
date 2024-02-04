@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RestController
 
 
 /**
- * Spring Security Auth TEST용 Simple Controller
+ * - Spring Security Auth TEST용 Simple Controller
+ * - MethodSecurity로 권한 제어
  */
 @PreAuthorize("hasRole('USER')")
 @RestController

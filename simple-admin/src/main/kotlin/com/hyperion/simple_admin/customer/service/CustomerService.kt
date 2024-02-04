@@ -25,7 +25,7 @@ class CustomerService(private val encoder: PasswordEncoder, private val customer
     /**
      * - 전체 데이터를 조회하고 NonEmptyList를 Either에 담아서 전달
      */
-    fun getCustomers(): Either<String, NonEmptyList<BaseUserModel?>> {
+    suspend fun getCustomers(): Either<String, NonEmptyList<BaseUserModel?>> {
         return when (val actual = customerJdslRepository.findAll {
             select(
                 entity(BaseUserModel::class),
@@ -41,7 +41,7 @@ class CustomerService(private val encoder: PasswordEncoder, private val customer
     /**
      * - id를 기준으로 데이터를 조회하고 NonEmptyList 를 Either 에 담아서 전달
      */
-    fun getCustomerById(id: Long): Either<String, NonEmptyList<BaseUserModel?>> {
+    suspend fun getCustomerById(id: Long): Either<String, NonEmptyList<BaseUserModel?>> {
         return when (val actual = customerJdslRepository.findAll {
             select(
                 entity(BaseUserModel::class),
@@ -61,7 +61,7 @@ class CustomerService(private val encoder: PasswordEncoder, private val customer
      * - 수신받은 entitiy를 업데이트.
      * @return Either<fail String,number of affected data>
      */
-    fun updateCustomerPassword(requestUserModel: RequestUserModel): Either<String, Int> {
+    suspend fun updateCustomerPassword(requestUserModel: RequestUserModel): Either<String, Int> {
         return when(val actual = customerJdslRepository.update {
             update(
                 entity(BaseUserModel::class),
@@ -81,7 +81,7 @@ class CustomerService(private val encoder: PasswordEncoder, private val customer
      * - id를 기준으로 Customer를 삭제, 결과를 Either로 전달
      * @return Either<fail String,number of affected data>
      */
-    fun deleteCustomer(id: Long): Either<String, Int> {
+    suspend fun deleteCustomer(id: Long): Either<String, Int> {
         return when (val actual = customerJdslRepository.delete() {
             deleteFrom(
                 entity(BaseUserModel::class),
@@ -95,17 +95,16 @@ class CustomerService(private val encoder: PasswordEncoder, private val customer
     }
 
     /**
-     * - jdsl repository Save Function Wrapping
      * - save 관련 exception을 Either로 catch한다.
      *
      * @throws IllegalArgumentException
      * @throws OptimisticLockingFailureException
      */
-    fun save(requestUserModel: RequestUserModel): Either<String, BaseUserModel> {
-
+    suspend fun save(requestUserModel: RequestUserModel): Either<String, BaseUserModel> {
         val reqToModel : (RequestUserModel) -> BaseUserModel = {data ->
             BaseUserModel(0, data.email, encoder.encode(data.password), data.role, data.name, data.tel, data.birthday)
         }
+
         return Either.catch {
             customerJdslRepository.save(reqToModel(requestUserModel))
         }.mapLeft {

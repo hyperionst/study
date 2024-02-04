@@ -27,6 +27,7 @@ import java.util.UUID
 /**
  * ## CustomerController
  * - BaseUserModel에 관련된 Request를 처리
+ * - MethodSecurity로 권한 제어
  *
  */
 //TODO : RestControllerAdvice로 에러처리를 묶어서 하는 방법 고려
