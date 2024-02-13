@@ -12,6 +12,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 	runtimeOnly("com.mysql:mysql-connector-j")  //mysql 8.x부터는 바꼈다고 한다.
+	//Secret Manager 데이터 받아오기 추가
+	implementation("io.awspring.cloud:spring-cloud-starter-aws-secrets-manager-config:2.4.4")
+
 
 	//Spring security
 	implementation("io.jsonwebtoken:jjwt-api:0.12.3")
