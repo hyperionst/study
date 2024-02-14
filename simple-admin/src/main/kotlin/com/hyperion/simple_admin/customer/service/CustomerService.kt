@@ -1,11 +1,13 @@
 package com.hyperion.simple_admin.customer.service
 
 import arrow.core.*
-import com.hyperion.core.logger
+
+
 import com.hyperion.simple_admin.customer.model.BaseUserModel
 import com.hyperion.simple_admin.customer.model.RequestUserModel
-import com.hyperion.simple_admin.customer.repository.CustomerJdslRepository
 import com.hyperion.simple_admin.customer.repository.CustomerRepository
+import com.hyperion.simple_admin.kafka.dto.KafkaDto
+import com.hyperion.simple_admin.kafka.producer.Producer
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -21,7 +23,11 @@ import org.springframework.stereotype.Service
  */
 //TODO : Either Error처리 Exception 구성 추가 할것
 @Service
-class CustomerService(private val encoder: PasswordEncoder, private val customerRepository: CustomerRepository) {
+class CustomerService(
+    private val encoder: PasswordEncoder,
+    private val customerRepository: CustomerRepository,
+    private val producer: Producer
+) {
 
     /**
      * - 전체 데이터를 조회하고 NonEmptyList를 Either에 담아서 전달
@@ -58,6 +64,7 @@ class CustomerService(private val encoder: PasswordEncoder, private val customer
 
     /**
      * - save 관련 exception을 Either로 catch한다.
+     * - 정상적으로 Save된 경우 Kafka로 데이터를 발행한다.
      *
      * @throws IllegalArgumentException
      * @throws OptimisticLockingFailureException
@@ -67,10 +74,12 @@ class CustomerService(private val encoder: PasswordEncoder, private val customer
             BaseUserModel(0, data.email, encoder.encode(data.password), data.role, data.name, data.tel, data.birthday)
         }
 
-        return customerRepository.save(reqToModel(requestUserModel))
-
+        val eitherUserModel =customerRepository.save(reqToModel(requestUserModel))
+        eitherUserModel.onRight {
+            producer.sendMessage(KafkaDto(requestUserModel.email, it))
+        }
+        return eitherUserModel
     }
-
 
     /**
      * Security UserDetailSevice전용

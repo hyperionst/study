@@ -4,6 +4,8 @@ plugins{
 
 dependencies {
 	api(project(":core"))
+
+
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
@@ -36,6 +38,11 @@ dependencies {
 	//Kotlin Coroutine & webflux-extension 추가
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
+	//Kafka
+	implementation("org.springframework.kafka:spring-kafka")
+	testImplementation("org.springframework.kafka:spring-kafka-test")
+
 
 }
 
