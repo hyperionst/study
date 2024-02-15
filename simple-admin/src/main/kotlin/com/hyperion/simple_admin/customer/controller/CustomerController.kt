@@ -2,17 +2,13 @@ package com.hyperion.simple_admin.customer.controller
 
 import arrow.core.Either
 import arrow.core.NonEmptyList
-import arrow.core.getOrElse
 import com.hyperion.core.logger
 import com.hyperion.simple_admin.customer.model.BaseUserModel
 import com.hyperion.simple_admin.customer.model.RequestUserModel
-import com.hyperion.simple_admin.customer.repository.CustomerJdslRepository
 import com.hyperion.simple_admin.customer.service.CustomerService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.security.core.userdetails.User
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -21,7 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
 
 
 /**
@@ -66,9 +61,9 @@ class CustomerController(private val customerService: CustomerService,) {
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    @PutMapping("/update")
-    suspend fun updateCustomerPassword(@Valid  @RequestBody requestUserModel: RequestUserModel) : ResponseEntity<String> {
-        return when(val value = customerService.updateCustomerPassword(requestUserModel)){
+    @PutMapping("/update/{id}")
+    suspend fun updateCustomerPassword(@PathVariable id: Long, @Valid @RequestBody requestUserModel: RequestUserModel) : ResponseEntity<String> {
+        return when(val value = customerService.updateCustomerPassword(id, requestUserModel)){
             is Either.Left -> {
                 logger.info { value.value }
                 ResponseEntity.noContent().build()

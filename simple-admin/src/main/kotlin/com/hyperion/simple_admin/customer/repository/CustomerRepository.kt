@@ -51,14 +51,14 @@ class CustomerRepository(private val encoder: PasswordEncoder,
      * - 수신받은 entitiy를 업데이트.
      * @return Either<fail String,number of affected data>
      */
-    suspend fun updateCustomerPassword(requestUserModel: RequestUserModel): Either<String, Int> {
+    suspend fun updateCustomerPassword(id : Long, requestUserModel: RequestUserModel): Either<String, Int> {
         return when(val actual = customerJdslRepository.update {
             update(
                 entity(BaseUserModel::class),
             ).set(
                 path(BaseUserModel::password), requestUserModel.password
             ).where(
-                path(BaseUserModel::email).equal(requestUserModel.email),
+                path(BaseUserModel::id).equal(id),
             )
         }){
             0 -> Either.Left("updateCustomerPassword :: There is no such data")
