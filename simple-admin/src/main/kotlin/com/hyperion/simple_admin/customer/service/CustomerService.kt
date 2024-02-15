@@ -10,9 +10,9 @@ interface CustomerService {
 
     suspend fun getCustomers(): Either<String, NonEmptyList<BaseUserModel?>>
 
-    suspend fun getCustomerById(id: Long): Either<String, NonEmptyList<BaseUserModel?>>
+    suspend fun getCustomerById(id: Long): Either<String, BaseUserModel?>
 
-    suspend fun updateCustomerPassword(id : Long, requestUserModel: RequestUserModel): Either<String, Int>
+    suspend fun updateCustomerPassword(id : Long, requestUserModel: RequestUserModel): Either<String, BaseUserModel?>
 
     suspend fun deleteCustomer(id: Long): Either<String, Int>
 

@@ -17,7 +17,7 @@
  - Spring-Data-jpa : jdsl :: JDSL.md 참고하세요~
 -----
 ### 5.kotlin-rx-arrow-example  
- - Arrow :: test 폴더에 있습니다. :: https://www.baeldung.com/kotlin/arrow
+ - Arrow :: test 폴더참고 :: https://www.baeldung.com/kotlin/arrow
  - Rx Example   :: (for Reactive Programing in kotlin chapter01~)
  - Kotlin-Basic :: Youtube 강의 내용 
 -----
@@ -41,12 +41,14 @@
  - 간단한 어드민을 구성한다. 
    + USER정보 및 권한을 바탕으로한 로그인
    + 등록 조회 수정에 관한 REST-API
- - 카프카 연동 // Redis 캐시연동 // ESK //로그연동(진행예정)
+ - 카프카 연동 // Redis 캐시연동 
 -----
 ### 10.aws-study.
  - aws 관련 사항 정리
-
-
+----
+### 11.redis-cache-example : 8081
+ - Redis Cache 테스트 : local-Redis 사용
+ - 
 
 
 

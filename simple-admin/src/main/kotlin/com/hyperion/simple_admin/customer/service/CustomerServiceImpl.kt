@@ -8,6 +8,9 @@ import com.hyperion.simple_admin.customer.model.RequestUserModel
 import com.hyperion.simple_admin.customer.repository.CustomerRepository
 import com.hyperion.simple_admin.kafka.dto.KafkaDto
 import com.hyperion.simple_admin.kafka.producer.Producer
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.CachePut
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -33,42 +36,53 @@ class CustomerServiceImpl(
      * - 전체 데이터를 조회하고 NonEmptyList를 Either에 담아서 전달
      */
     override suspend fun getCustomers(): Either<String, NonEmptyList<BaseUserModel?>> {
-        return customerRepository.getCustomers()
+        return when (val actual = customerRepository.getCustomers().toNonEmptyListOrNull()) {
+            null -> Either.Left("CustomerService.getCustomers :: No Data")
+            else -> Either.Right(actual)
+        }
     }
-
 
     /**
      * - id를 기준으로 데이터를 조회하고 NonEmptyList 를 Either 에 담아서 전달
      */
-    override suspend fun getCustomerById(id: Long): Either<String, NonEmptyList<BaseUserModel?>> {
-        return customerRepository.getCustomerById(id)
+    override suspend fun getCustomerById(id: Long): Either<String, BaseUserModel?> {
+        return when (val actual = customerRepository.getCustomerById(id)){
+                null -> Either.Left("CustomerService.getCustomerById :: Not Found")
+                else -> Either.Right(actual)
+            }
     }
-
 
     /**
      * - 수신받은 entitiy를 업데이트.
      * @return Either<fail String,number of affected data>
      */
-    override suspend fun updateCustomerPassword(id : Long, requestUserModel: RequestUserModel): Either<String, Int> {
+    override suspend fun updateCustomerPassword(id : Long, requestUserModel: RequestUserModel): Either<String, BaseUserModel?> {
         val passwordEncoding : (RequestUserModel) -> RequestUserModel = {data ->
             RequestUserModel(data.email, encoder.encode(data.password), data.role, data.name, data.tel, data.birthday)
         }
-        return customerRepository.updateCustomerPassword(id, passwordEncoding(requestUserModel))
+        return when(val actual = customerRepository.updateCustomerPassword(passwordEncoding(requestUserModel), id))
+            {
+                null -> Either.Left("updateCustomerPassword :: There is no such data")
+                else -> Either.Right(actual)
+            }
     }
+
 
     /**
      * - id를 기준으로 Customer를 삭제, 결과를 Either로 전달
      * @return Either<fail String,number of affected data>
      */
     override suspend fun deleteCustomer(id: Long): Either<String, Int> {
-        return customerRepository.deleteCustomer(id)
+        return when(val actual =  customerRepository.deleteCustomer(id)) {
+            0 -> Either.Left("CustomerService.deleteCustomer :: Request Fail(There is No Such Data)")
+            else -> Either.Right(actual)
+        }
     }
 
 
     /**
      * - save 관련 exception을 Either로 catch한다.
      * - 정상적으로 Save된 경우 Kafka로 데이터를 발행한다.
-     *
      * @throws IllegalArgumentException
      * @throws OptimisticLockingFailureException
      */
@@ -77,7 +91,12 @@ class CustomerServiceImpl(
             BaseUserModel(0, data.email, encoder.encode(data.password), data.role, data.name, data.tel, data.birthday)
         }
 
-        val eitherUserModel =customerRepository.save(reqToModel(requestUserModel))
+        val eitherUserModel = Either.catch {
+            customerRepository.save(reqToModel(requestUserModel))
+        }.mapLeft {
+            "CustomerService.save :: save fail"
+        }
+
         eitherUserModel.onRight {
             producer.sendMessage(KafkaDto(requestUserModel.email, it))
         }

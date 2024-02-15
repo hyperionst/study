@@ -45,6 +45,12 @@ dependencies {
 	implementation("org.springframework.kafka:spring-kafka")
 	testImplementation("org.springframework.kafka:spring-kafka-test")
 
+	//cache
+	implementation("org.springframework.boot:spring-boot-starter-cache")
+	//redis
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+
 }
 
 tasks.bootJar {

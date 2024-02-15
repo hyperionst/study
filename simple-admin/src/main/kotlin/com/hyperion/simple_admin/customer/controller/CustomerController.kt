@@ -44,11 +44,23 @@ class CustomerController(private val customerService: CustomerService,) {
         }
     }
 
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @GetMapping("/{id}")
+    suspend fun getCustomer(@PathVariable id : Long) : ResponseEntity<BaseUserModel?> {
+        return when(val value = customerService.getCustomerById(id)){
+            is Either.Left -> {
+                logger.info { value.value }
+                ResponseEntity.noContent().build()
+            }
+            is Either.Right ->{
+                ResponseEntity.ok().body(value.value)
+            }
+        }
+    }
+
 
     @PostMapping("/save")
     suspend fun saveCustomers(@Valid  @RequestBody requestUserModel: RequestUserModel) : ResponseEntity<BaseUserModel> {
-
-
         return when(val value = customerService.save(requestUserModel)){
             is Either.Left -> {
                 logger.info { value.value }
@@ -60,22 +72,22 @@ class CustomerController(private val customerService: CustomerService,) {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @PutMapping("/update/{id}")
-    suspend fun updateCustomerPassword(@PathVariable id: Long, @Valid @RequestBody requestUserModel: RequestUserModel) : ResponseEntity<String> {
+    suspend fun updateCustomerPassword(@PathVariable id: Long, @Valid @RequestBody requestUserModel: RequestUserModel) : ResponseEntity<BaseUserModel?> {
         return when(val value = customerService.updateCustomerPassword(id, requestUserModel)){
             is Either.Left -> {
                 logger.info { value.value }
                 ResponseEntity.noContent().build()
             }
             is Either.Right ->{
-                ResponseEntity.ok().body("updated:${value.value}")
+                ResponseEntity.ok().body(value.value)
             }
         }
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     suspend fun deleteCustomer(@PathVariable id: Long) : ResponseEntity<String> {
         return when(val value = customerService.deleteCustomer(id)){
@@ -88,7 +100,4 @@ class CustomerController(private val customerService: CustomerService,) {
             }
         }
     }
-
-
-
 }
