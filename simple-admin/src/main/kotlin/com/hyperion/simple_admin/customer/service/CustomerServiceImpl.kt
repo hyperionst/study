@@ -8,9 +8,6 @@ import com.hyperion.simple_admin.customer.model.RequestUserModel
 import com.hyperion.simple_admin.customer.repository.CustomerRepository
 import com.hyperion.simple_admin.kafka.dto.KafkaDto
 import com.hyperion.simple_admin.kafka.producer.Producer
-import org.springframework.cache.annotation.CacheEvict
-import org.springframework.cache.annotation.CachePut
-import org.springframework.cache.annotation.Cacheable
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
