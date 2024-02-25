@@ -1,12 +1,12 @@
-package com.hyperion.springdatajpa.criteria
+package com.hyperion.springdata.criteria
 
 import com.hyperion.core.logger
-import com.hyperion.springdatajpa.BookEntity
-import com.hyperion.springdatajpa.criteria.basicway.BookDao
-import com.hyperion.springdatajpa.criteria.interfaceway.BookRepository
-import com.hyperion.springdatajpa.criteria.static_rambda.SpecificExecutorBookRepository
-import com.hyperion.springdatajpa.criteria.static_rambda.hasAuthor
-import com.hyperion.springdatajpa.criteria.static_rambda.titleContains
+import com.hyperion.springdata.BookEntity
+import com.hyperion.springdata.criteria.basicway.BookDao
+import com.hyperion.springdata.criteria.interfaceway.BookRepository
+import com.hyperion.springdata.criteria.static_rambda.SpecificExecutorBookRepository
+import com.hyperion.springdata.criteria.static_rambda.hasAuthor
+import com.hyperion.springdata.criteria.static_rambda.titleContains
 import org.springframework.data.jpa.domain.Specification
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

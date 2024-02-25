@@ -1,6 +1,6 @@
-package com.hyperion.springdatajpa.criteria.static_rambda
+package com.hyperion.springdata.criteria.static_rambda
 
-import com.hyperion.springdatajpa.BookEntity
+import com.hyperion.springdata.BookEntity
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.CriteriaQuery
 import jakarta.persistence.criteria.Root

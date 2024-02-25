@@ -1,6 +1,5 @@
-package com.hyperion.springdatajpa.jdsl
+package com.hyperion.springdata.jdsl
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 
 

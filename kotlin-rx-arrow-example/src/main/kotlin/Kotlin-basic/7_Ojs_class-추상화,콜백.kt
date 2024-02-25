@@ -7,8 +7,6 @@ import kotlin.random.Random
 * 2024.01.11
 * 오준석 생존코딩  : 코틀린 문법 총정리
 * https://www.youtube.com/watch?v=OtHkb6wAI5U
-*
-*
 * */
 
 //컴파일 타임 상수   //class선언할 필요없이 변수 지정이 가능하다.
@@ -101,7 +99,6 @@ fun typeCheck() {
 class Box<T> (var value: T) {
     //이런식으로 선언한다.
 }
-
 
 //call back 함수
 fun myFunc(callback: ()->Unit) {  //인자없음, //리턴없음

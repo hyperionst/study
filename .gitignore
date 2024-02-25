@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+### docker
+docker/Mysql-Redis-kafka-Compose/zookeeper-data
+docker/Mysql-Redis-kafka-Compose/kafka-data
+docker/Mysql-Redis-kafka-Compose/master_db

@@ -1,6 +1,6 @@
-package com.hyperion.springdatajpa.criteria.interfaceway
+package com.hyperion.springdata.criteria.interfaceway
 
-import com.hyperion.springdatajpa.BookEntity
+import com.hyperion.springdata.BookEntity
 import jakarta.persistence.EntityManager
 import jakarta.persistence.criteria.Predicate
 import org.springframework.data.jpa.repository.JpaRepository

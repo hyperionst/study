@@ -19,7 +19,6 @@ package `Kotlin-basic`/*
 //contains : 조건을 포함하고있는 수를 계산해준다.
 //count    : 그냥 카운트 할수도 있고
 
-
 fun funccc(){
     val nameList = listOf("박수영","김지수","김다현", "신유나", "김지우")
     nameList.forEach{print(it + " ")}
@@ -39,8 +38,9 @@ fun funccc(){
 //associateBy : 아이템에서 key를 추출하여 map으로 변환 --> 여러 속성을가진 객체로 구성된 List에서 일부 속성을 키로지정하고 나머지속성을 value로 만든 map으로변환
 //groubpBy    : 지정된 속성을 기준으로 그 값이 같은 값들을 LIST로 묶어서 map으로 만든다.
 //partition   : 조건을 걸어 true / false의 각각의 List 로 구분해준다. PAIR라는 클래스로 리턴된다.  나눠서 받던지 var(a,b) = <pair...>, pair에서 각각접근하던지...
-//flatmap     : 중괄호 안에서 새로운 값들이 생성되면 이들을 모아서 하나의 컬랙션으로 반환해준다.
-//zip         : 두 컬랙션의 내용을 각각 짝으로 지어서 리스트로 바환한다    alpabets zip number ==> [(a,1),(b,2)....  ]
+//flatmap     :지 중괄호 안에서 새로운 값들이 생성되면 이들을 모아서 하나의 컬랙션으로 반환해준다.
+//zip         : 두 컬랙션의 내용을 각각 짝으로 어서 리스트로 바환한다    alpabets zip number ==> [(a,1),(b,2)....  ]
+
 fun collectionFunc() {
     val numbers = listOf(-3,7,2,-10,1)
 
@@ -61,7 +61,6 @@ fun collectionFunc() {
 //지연대리자 속성 --> lazy delegatge properties
 //코드상에서는 초기화가되있는것처럼 보이지만 실제로는 첨으로 실행되는 시점에 초기화가 되는 변수로....
 //람다를 통해서 초기화가되므로... 초기화 시점에 특정한 동작을 지정할수 있는 장점이 있다더라
-
 
 
 fun test1(){
@@ -88,9 +87,6 @@ class LateInitSample {
 }
 
 //-----------------------------------------------------------------------------------------------------------
-//https://www.youtube.com/watch?v=Lpieg1zrKdg
-//코루틴
-//코루틴은 필요하면 찾아봐야할듯 하다.
 
 fun main() {
     val name1: String by lazy { "123456" }      //value 전용임

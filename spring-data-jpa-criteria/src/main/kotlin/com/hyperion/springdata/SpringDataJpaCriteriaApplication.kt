@@ -1,4 +1,4 @@
-package com.hyperion.springdatajpa
+package com.hyperion.springdata
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

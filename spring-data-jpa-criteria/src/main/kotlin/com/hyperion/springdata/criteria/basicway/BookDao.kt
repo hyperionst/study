@@ -1,6 +1,6 @@
-package com.hyperion.springdatajpa.criteria.basicway
+package com.hyperion.springdata.criteria.basicway
 
-import com.hyperion.springdatajpa.BookEntity
+import com.hyperion.springdata.BookEntity
 import jakarta.persistence.EntityManager
 import jakarta.persistence.TypedQuery
 import jakarta.persistence.criteria.CriteriaBuilder

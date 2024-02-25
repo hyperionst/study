@@ -1,4 +1,8 @@
-package `Kotlin-basic`/*
+package `Kotlin-basic`
+
+import org.jetbrains.annotations.TestOnly
+
+/*
 * 21강부터
 *
 *
@@ -102,7 +106,6 @@ fun main() {
 
 class Outer {
     var text = "Outer Class"
-
     class Nested {
         fun introduce() {
             println("Nested")
